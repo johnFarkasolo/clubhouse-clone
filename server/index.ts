@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import multer from "multer";
 
 dotenv.config({
 	path: 'server/.env'
@@ -14,6 +15,8 @@ const app = express();
 app.use(passport.initialize());
 
 app.get('/auth/github', passport.authenticate('github'));
+
+app.get('/upload', multer.single('upload'));
 
 app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
